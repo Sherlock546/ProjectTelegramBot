@@ -20,7 +20,7 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Переменная среды (значение можно задать при запуске контейнера)
-ENV BotToken=""
+ENV BotToken="7639069298:AAEewwh3I_HxhusY_uYRqEZuaAN7tzPamu4"
 
 # Запускаем бота
 ENTRYPOINT ["dotnet", "TelegramBot.dll"]
