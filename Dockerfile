@@ -2,26 +2,25 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Копируем только .csproj и .sln для восстановления зависимостей
-COPY ["TelegramBot/TelegramBot.csproj", "TelegramBot/"]
-COPY ["ProjectTelegramBot.sln", "."]
-RUN dotnet restore "ProjectTelegramBot.sln"
+# Копируем файлы решения и проекта
+COPY ProjectTelegramBot.sln .
+COPY TelegramBot/TelegramBot.csproj ./TelegramBot/
+RUN dotnet restore
 
-# Копируем весь исходный код
+# Копируем весь код
 COPY . .
 
-# Сборка проекта
-WORKDIR "/src/TelegramBot"
-RUN dotnet publish -c Release -o /app/publish --no-restore
+# Собираем приложение
+WORKDIR /src/TelegramBot
+RUN dotnet publish -c Release -o /app/publish
 
-# Финальный образ (только runtime + publish)
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# Этап запуска
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Переменные среды (BotToken задаётся при запуске контейнера)
+# Переменная среды (значение можно задать при запуске контейнера)
 ENV BotToken="8044463785:AAGxFmlGzOGLJ821BYzEQz_8NxzvNeaFOW4"
-ENV ASPNETCORE_ENVIRONMENT=Production
-ENV DOTNET_NOLOGO=true
 
+# Запускаем бота
 ENTRYPOINT ["dotnet", "TelegramBot.dll"]
