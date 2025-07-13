@@ -1,13 +1,11 @@
-## Игнорируем системные/служебные файлы
 **/.git
+**/.gitignore
 **/.vs
 **/bin
 **/obj
+**/.dockerignore
+**/Dockerfile
 *.user
 *.suo
-*.env
-.DS_Store
-
-## Исключаем файлы Docker
-docker-compose.*
-**/.dockerignore
+.env
+**/.gitattributes
