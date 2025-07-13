@@ -105,7 +105,7 @@ namespace TelegramBot
             "Если ты нас предал, мы не станем тебя убивать… мы просто отправим тебя в сушку на максимальных оборотах."
         };
 
-        private const string BotToken = "8044463785:AAGxFmlGzOGLJ821BYzEQz_8NxzvNeaFOW4";
+        private const string BotToken = "7639069298:AAEewwh3I_HxhusY_uYRqEZuaAN7tzPamu4";
 
         public BotBackgroundService(ILogger<BotBackgroundService> logger, UserInfoStorage userInfoStorage)
         {
